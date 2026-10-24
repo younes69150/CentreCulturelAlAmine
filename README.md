@@ -47,8 +47,11 @@ Mise à jour : cPanel > *Git Version Control* > *Manage* > *Pull*. `config.php` 
 mysql -u root -e "CREATE DATABASE cca CHARACTER SET utf8mb4"
 mysql -u root cca < database/schema.sql
 cp config/config.example.php config/config.php   # puis éditer
+php bin/demo-data.php                            # données fictives (debug = true uniquement)
 php -S 127.0.0.1:8000 -t public public/index.php
 ```
+
+Comptes fictifs : `admin@demo.local`, `prof@demo.local`, `eleve1@demo.local`, `eleve2@demo.local`, `adulte@demo.local`, mot de passe `demo123456`.
 
 ## Changer les couleurs
 
