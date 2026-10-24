@@ -16,9 +16,7 @@ $active = fn (string $prefix) => str_starts_with($path, $prefix) ? ' aria-curren
     <title><?= e($title ?? '') ?> · <?= e(config('app.name')) ?></title>
     <meta name="robots" content="noindex">
     <link rel="icon" href="<?= url('assets/img/logo.svg') ?>" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="<?= url('assets/css/fonts.css') ?>">
     <link rel="stylesheet" href="<?= url('assets/css/style.css') ?>">
     <script src="<?= url('assets/js/app.js') ?>" defer></script>
     <noscript><link rel="stylesheet" href="<?= url('assets/css/noscript.css') ?>"></noscript>
@@ -72,7 +70,7 @@ $active = fn (string $prefix) => str_starts_with($path, $prefix) ? ' aria-curren
 <footer class="site-footer">
     <div class="container footer-inner">
         <span>© <?= date('Y') ?> Centre Culturel Al Amine</span>
-        <span>Espace réservé aux élèves et enseignants</span>
+        <a href="<?= url('confidentialite') ?>">Confidentialité et mentions légales</a>
     </div>
 </footer>
 

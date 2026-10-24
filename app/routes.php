@@ -9,6 +9,11 @@ return [
     ['GET',  '/inscription', 'register_form'],
     ['POST', '/inscription', 'register_submit'],
     ['POST', '/deconnexion', 'logout'],
+    ['GET',  '/mot-de-passe-oublie', 'forgot_form'],
+    ['POST', '/mot-de-passe-oublie', 'forgot_submit'],
+    ['GET',  '/mot-de-passe/nouveau', 'reset_form'],
+    ['POST', '/mot-de-passe/nouveau', 'reset_submit'],
+    ['GET',  '/confidentialite', 'privacy'],
     ['GET',  '/installation', 'install_form'],
     ['POST', '/installation', 'install_submit'],
 
@@ -53,4 +58,5 @@ return [
     ['GET',  '/admin/utilisateurs/(\d+)', 'admin_users_edit'],
     ['POST', '/admin/utilisateurs/(\d+)', 'admin_users_update'],
     ['POST', '/admin/utilisateurs/(\d+)/mot-de-passe', 'admin_users_reset_password'],
+    ['POST', '/admin/utilisateurs/(\d+)/supprimer', 'admin_users_delete'],
 ];

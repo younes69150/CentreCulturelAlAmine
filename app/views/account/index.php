@@ -7,6 +7,7 @@
             <dt>Statut</dt><dd><?= e(role_label($user['role'])) ?></dd>
             <?php if ($user['classe_nom']): ?><dt>Classe</dt><dd><?= e($user['classe_nom']) ?></dd><?php endif; ?>
         </dl>
+        <p class="muted small">Pour corriger ou supprimer vos données, écrivez à <?= e(config('legal.email', '')) ?>. <a href="<?= url('confidentialite') ?>">En savoir plus</a></p>
     </div>
     <div class="card">
         <h2>Changer de mot de passe</h2>

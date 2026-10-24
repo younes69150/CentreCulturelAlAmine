@@ -39,6 +39,13 @@
                     <input id="password_confirm" name="password_confirm" type="password" autocomplete="new-password" required>
                 </div>
             </div>
+            <div class="field">
+                <label class="check check-consent">
+                    <input type="checkbox" name="consent" value="1" required<?= !empty($old['consent']) ? ' checked' : '' ?>>
+                    <span>J'ai lu la <a href="<?= url('confidentialite') ?>" target="_blank">politique de confidentialité</a>. Si l'élève a moins de 15 ans, je suis son parent ou j'ai son accord.</span>
+                </label>
+                <?php partial('partials/field_error', ['errors' => $errors, 'field' => 'consent']) ?>
+            </div>
             <button class="btn btn-primary btn-block" type="submit">Créer mon compte</button>
         </form>
         <p class="auth-alt">Déjà inscrit ? <a href="<?= url('connexion') ?>">Se connecter</a></p>

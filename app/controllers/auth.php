@@ -75,6 +75,7 @@ function register_submit(): void
         'prenom' => input('prenom', 100),
         'nom'    => input('nom', 100),
         'email'  => mb_strtolower(input('email', 190)),
+        'consent' => isset($_POST['consent']),
     ];
     $password = (string) ($_POST['password'] ?? '');
     $confirm = (string) ($_POST['password_confirm'] ?? '');
@@ -92,6 +93,7 @@ function register_submit(): void
     if ($old['nom'] === '') $errors['nom'] = 'Indiquez votre nom.';
     if (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) $errors['email'] = 'Adresse e-mail invalide.';
     if ($err = password_error($password, $confirm)) $errors['password'] = $err;
+    if (!$old['consent']) $errors['consent'] = 'Merci de confirmer avoir lu la politique de confidentialité.';
     if (strlen(normalize_code($old['code'])) !== 12) $errors['code'] = 'Le code doit contenir 12 caractères (ex. ABCD-EFGH-JKLM).';
 
     if (!$errors) {
@@ -193,4 +195,9 @@ function install_submit(): void
     login_user(['id' => $id]);
     flash('success', 'Compte administrateur créé. Commencez par créer vos classes.');
     redirect('/admin/classes');
+}
+
+function privacy(): void
+{
+    render('privacy', ['title' => 'Confidentialité et mentions légales']);
 }

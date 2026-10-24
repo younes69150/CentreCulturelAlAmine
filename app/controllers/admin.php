@@ -14,7 +14,9 @@ function admin_dashboard(): void
         'classes'   => (int) db_value('SELECT COUNT(*) FROM classes'),
     ];
     $recent = db_all("SELECT u.prenom, u.nom, u.role, u.created_at, c.nom AS classe_nom FROM users u LEFT JOIN classes c ON c.id = u.classe_id ORDER BY u.created_at DESC LIMIT 5");
-    render('admin/dashboard', ['title' => 'Administration', 'stats' => $stats, 'recent' => $recent]);
+    $backups = glob(BASE_PATH . '/storage/backups/base_*.sql.gz');
+    $lastBackup = $backups ? max(array_map('filemtime', $backups)) : null;
+    render('admin/dashboard', ['title' => 'Administration', 'stats' => $stats, 'recent' => $recent, 'lastBackup' => $lastBackup]);
 }
 
 // --- Actualités -----------------------------------------------------------
@@ -444,4 +446,17 @@ function admin_users_reset_password(int $id): void
     $temp = generate_invite_code();
     db_run('UPDATE users SET password_hash = ? WHERE id = ?', [hash_password($temp), $id]);
     admin_users_edit($id, [], $temp);
+}
+
+function admin_users_delete(int $id): void
+{
+    $admin = require_admin();
+    $target = db_one('SELECT id, prenom, nom FROM users WHERE id = ?', [$id]) ?? abort(404);
+    if ($id === (int) $admin['id']) {
+        flash('error', 'Vous ne pouvez pas supprimer votre propre compte.');
+        redirect('/admin/utilisateurs/' . $id);
+    }
+    db_run('DELETE FROM users WHERE id = ?', [$id]);
+    flash('success', 'Compte de ' . $target['prenom'] . ' ' . $target['nom'] . ' supprimé.');
+    redirect('/admin/utilisateurs');
 }

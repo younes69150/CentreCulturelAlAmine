@@ -41,4 +41,11 @@
         <div class="grow"><strong>Mot de passe oublié ?</strong><br><span class="muted small">Génère un mot de passe provisoire à transmettre.</span></div>
         <button class="btn btn-ghost">Réinitialiser</button>
     </form>
+    <?php if ((int) $target['id'] !== (int) $user['id']): ?>
+        <form method="post" action="<?= url('admin/utilisateurs/' . (int) $target['id'] . '/supprimer') ?>" class="card form-row" data-confirm="Supprimer définitivement ce compte et ses données ? Cette action est irréversible.">
+            <?= csrf_field() ?>
+            <div class="grow"><strong>Supprimer le compte</strong><br><span class="muted small">Efface définitivement la personne (droit à l'effacement, fin d'inscription). Les actualités et documents qu'elle a publiés restent.</span></div>
+            <button class="btn btn-danger">Supprimer</button>
+        </form>
+    <?php endif; ?>
 </section>

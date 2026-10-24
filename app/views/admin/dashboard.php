@@ -9,6 +9,15 @@
         <a class="stat" href="<?= url(is_admin($user) ? 'admin/classes' : 'admin') ?>"><strong><?= $stats['classes'] ?></strong><span>classes</span></a>
     </div>
 
+    <?php if (is_admin($user)): ?>
+        <?php if (!$lastBackup): ?>
+            <div class="alert alert-error dashboard-alert">Aucune sauvegarde trouvée. Programmez la sauvegarde automatique (voir le README, « Sauvegardes »).</div>
+        <?php elseif (time() - $lastBackup > 2 * 86400): ?>
+            <div class="alert alert-error dashboard-alert">Dernière sauvegarde le <?= e(format_date(date('Y-m-d H:i:s', $lastBackup), true)) ?> : la sauvegarde automatique ne tourne plus.</div>
+        <?php else: ?>
+            <p class="muted small backup-ok">Dernière sauvegarde : <?= e(format_date(date('Y-m-d H:i:s', $lastBackup), true)) ?></p>
+        <?php endif; ?>
+    <?php endif; ?>
     <div class="grid-2 gap-lg">
         <div class="card">
             <h2>Actions rapides</h2>

@@ -13,6 +13,20 @@ return [
         // Clé demandée une seule fois sur /installation pour créer le premier admin.
         // La page se désactive dès qu'un compte existe.
         'setup_key' => 'CHANGER_MOI_AUSSI',
+        // Adresse publique du site, utilisée dans les liens envoyés par e-mail.
+        'url'      => 'https://votre-domaine.fr',
+    ],
+    'mail' => [
+        // Adresse d'envoi : créez-la dans cPanel > Comptes de messagerie.
+        'from'      => 'no-reply@votre-domaine.fr',
+        'from_name' => 'Centre Culturel Al Amine',
+    ],
+    // Affiché sur la page « Confidentialité et mentions légales ».
+    'legal' => [
+        'structure'   => 'Centre Culturel Al Amine (association loi 1901)',
+        'adresse'     => 'Adresse à compléter',
+        'responsable' => 'Nom du président ou de la présidente',
+        'email'       => 'contact@votre-domaine.fr',
     ],
     'db' => [
         'host'    => 'localhost',

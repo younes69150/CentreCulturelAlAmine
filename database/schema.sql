@@ -92,6 +92,17 @@ CREATE TABLE annonces (
     CONSTRAINT fk_annonces_auteur FOREIGN KEY (auteur_id) REFERENCES users(id)   ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Liens « mot de passe oublié » : seul un hachage du jeton est stocké.
+CREATE TABLE password_resets (
+    id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id    INT UNSIGNED NOT NULL,
+    token_hash CHAR(64) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    created_at DATETIME NOT NULL,
+    UNIQUE KEY uq_resets_token (token_hash),
+    CONSTRAINT fk_resets_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Anti force brute (connexion, codes d'inscription).
 CREATE TABLE attempts (
     id         BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,

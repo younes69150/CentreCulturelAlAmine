@@ -17,6 +17,6 @@
             <button class="btn btn-primary btn-block" type="submit">Se connecter</button>
         </form>
         <p class="auth-alt">Pas encore de compte ? <a href="<?= url('inscription') ?>">Inscription avec un code</a></p>
-        <p class="auth-alt small muted">Mot de passe oublié ? Demandez à l'école de le réinitialiser.</p>
+        <p class="auth-alt small"><a href="<?= url('mot-de-passe-oublie') ?>">Mot de passe oublié ?</a></p>
     </div>
 </section>
