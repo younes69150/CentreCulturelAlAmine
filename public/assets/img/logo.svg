@@ -1,11 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Centre Culturel Al Amine">
-  <g fill="#C9A227">
-    <rect x="17" y="17" width="66" height="66" rx="4"/>
-    <rect x="17" y="17" width="66" height="66" rx="4" transform="rotate(45 50 50)"/>
+  <g transform="translate(50 50)">
+    <g fill="#1F3A68">
+      <rect x="-31" y="-31" width="62" height="62"/>
+      <rect x="-31" y="-31" width="62" height="62" transform="rotate(45)"/>
+    </g>
+    <g fill="#EAD9B5">
+      <rect x="-22" y="-22" width="44" height="44"/>
+      <rect x="-22" y="-22" width="44" height="44" transform="rotate(45)"/>
+    </g>
+    <path d="M-16 6c6-4 11-4 16 0 5-4 10-4 16 0v-18c-6-4-11-4-16 0-5-4-10-4-16 0z" fill="#1F3A68"/>
+    <path d="M0 -12v18" stroke="#D9B67A" stroke-width="1.8"/>
   </g>
-  <circle cx="50" cy="50" r="29" fill="#0F5A44"/>
-  <circle cx="50" cy="50" r="25.5" fill="none" stroke="#E9D9A6" stroke-width="1.2" opacity=".55"/>
-  <path d="M38 68V49a12 12 0 0 1 24 0v19" fill="none" stroke="#FAF7F0" stroke-width="3.2" stroke-linecap="round"/>
-  <path d="M50 37.5l2.2 4.6 4.6 2.2-4.6 2.2-2.2 4.6-2.2-4.6-4.6-2.2 4.6-2.2z" fill="#E9D9A6"/>
-  <path d="M35 68.5c5-2.2 10-2.2 15 0 5-2.2 10-2.2 15 0" fill="none" stroke="#E9D9A6" stroke-width="2.4" stroke-linecap="round"/>
 </svg>
