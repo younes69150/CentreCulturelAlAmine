@@ -27,10 +27,17 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+/* Pas d'effet « élastique » au défilement : en-tête et pied de page restent collés aux bords.
+   Le fond de html reprend leurs couleurs pour les navigateurs qui gardent cet effet (Safari). */
+html {
+    -webkit-text-size-adjust: 100%;
+    overscroll-behavior: none;
+    background: linear-gradient(to bottom, var(--surface) 50%, var(--primary-dark) 50%);
+}
 body {
     margin: 0;
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     font-family: var(--font);
@@ -69,6 +76,7 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .92em;
 
 /* En-tête */
 .site-header { background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20; }
+.site-footer { margin-top: auto; }
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--primary-dark); }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
