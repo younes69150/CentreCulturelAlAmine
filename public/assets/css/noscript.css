@@ -1,0 +1,2 @@
+.main-nav { display: flex !important; position: static !important; flex-wrap: wrap; box-shadow: none !important; }
+.nav-toggle { display: none !important; }
