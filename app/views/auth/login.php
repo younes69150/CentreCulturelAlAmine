@@ -1,8 +1,8 @@
+<?php $htmlClass = 'page-auth'; ?>
 <section class="auth">
     <div class="auth-card">
-        <img class="auth-logo" src="<?= url('assets/img/logo.svg') ?>" alt="" width="75" height="64">
         <h1>Connexion</h1>
-        <p class="muted">Accédez à votre espace élève ou professeur.</p>
+        <p class="muted">Espace élèves et professeurs.</p>
         <?php if ($error): ?><div class="alert alert-error" role="alert"><?= e($error) ?></div><?php endif; ?>
         <form method="post" action="<?= url('connexion') ?>" class="form">
             <?= csrf_field() ?>

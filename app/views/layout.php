@@ -9,7 +9,7 @@ $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 $active = fn (string $prefix) => str_starts_with($path, $prefix) ? ' aria-current="page"' : '';
 ?>
 <!doctype html>
-<html lang="fr">
+<html lang="fr"<?= isset($htmlClass) ? ' class="' . e($htmlClass) . '"' : '' ?>>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
