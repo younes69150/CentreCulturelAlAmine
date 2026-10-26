@@ -2,7 +2,7 @@
 <section class="auth">
     <div class="auth-card auth-card-wide">
         <h1>Inscription</h1>
-        <p class="muted">Avec le code personnel remis par l'école (utilisable une seule fois).</p>
+        <p class="muted">Avec le code remis par l'école. Déjà inscrit ? <a href="<?= url('connexion') ?>">Se connecter</a></p>
         <form method="post" action="<?= url('inscription') ?>" class="form" novalidate>
             <?= csrf_field() ?>
             <div class="grid-2">
@@ -47,6 +47,5 @@
             </div>
             <button class="btn btn-primary btn-block" type="submit">Créer mon compte</button>
         </form>
-        <p class="auth-alt">Déjà inscrit ? <a href="<?= url('connexion') ?>">Se connecter</a></p>
     </div>
 </section>
