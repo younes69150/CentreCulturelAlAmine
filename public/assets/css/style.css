@@ -344,8 +344,6 @@ html.page-auth::-webkit-scrollbar { display: none; }
 .page-auth .auth { padding-top: 14px; padding-bottom: 14px; }
 .field label.check-consent { font-weight: 400; font-size: .85rem; line-height: 1.45; }
 
-/* Le pied de page reste accessible ailleurs ; ici on garde tout l'écran pour le formulaire. */
-.page-auth .site-footer { display: none; }
 @media (max-height: 760px) and (min-width: 761px) {
     .page-auth .site-header .header-inner { min-height: 60px; }
     .page-auth .auth-card { padding: 20px 28px; }
@@ -355,4 +353,8 @@ html.page-auth::-webkit-scrollbar { display: none; }
     .page-auth .field { gap: 4px; }
     .page-auth input { padding: 8px 12px; }
     .page-auth .btn { padding: 9px 20px; }
+    .page-auth .auth { padding-top: 8px; padding-bottom: 8px; }
+    .page-auth .auth-card { padding: 16px 28px; }
+    .page-auth .auth-card h1 { font-size: 1.8rem; margin-bottom: 0; }
+    .page-auth .footer-inner { padding-top: 8px; padding-bottom: 8px; font-size: .8rem; }
 }
