@@ -1,14 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Centre Culturel Al Amine">
-  <g transform="translate(50 50)">
-    <g fill="#1F3A68">
-      <rect x="-31" y="-31" width="62" height="62"/>
-      <rect x="-31" y="-31" width="62" height="62" transform="rotate(45)"/>
-    </g>
-    <g fill="#EAD9B5">
-      <rect x="-22" y="-22" width="44" height="44"/>
-      <rect x="-22" y="-22" width="44" height="44" transform="rotate(45)"/>
-    </g>
-    <path d="M-16 6c6-4 11-4 16 0 5-4 10-4 16 0v-18c-6-4-11-4-16 0-5-4-10-4-16 0z" fill="#1F3A68"/>
-    <path d="M0 -12v18" stroke="#D9B67A" stroke-width="1.8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 530 454" role="img" aria-label="Centre Culturel Al Amine">
+  <g fill="#14223F">
+    <rect x="0" y="0" width="169" height="358"/>
+    <rect x="181" y="0" width="169" height="358"/>
+    <rect x="0" y="370" width="169" height="84"/>
+    <rect x="181" y="370" width="169" height="84"/>
+  </g>
+  <g fill="#C49A3A">
+    <rect x="361" y="0" width="169" height="358"/>
+    <rect x="361" y="370" width="169" height="84"/>
+  </g>
+  <g fill="none" stroke="#FFFFFF" stroke-width="8">
+    <path d="M139 79H58v209h81"/>
+    <path d="M320 79H239v209h81"/>
+    <path d="M408 292V79h75v213M408 188h75"/>
   </g>
 </svg>

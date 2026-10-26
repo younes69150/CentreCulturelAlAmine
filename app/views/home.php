@@ -1,7 +1,8 @@
 <section class="hero">
     <div class="container hero-inner">
+        <span class="hero-badge"><img src="<?= url('assets/img/logo.svg') ?>" alt="" width="79" height="68"></span>
+        <h1>Centre Culturel<span class="hero-sub">Al Amine</span></h1>
         <p class="hero-ar" lang="ar" dir="rtl">المركز الثقافي الأمين</p>
-        <h1>Centre Culturel Al Amine</h1>
         <p class="lead">L'espace en ligne des élèves et des professeurs : actualités de l'école, documents de cours et messages importants, au même endroit.</p>
         <div class="hero-actions">
             <a class="btn btn-gold" href="<?= url('connexion') ?>">Se connecter</a>

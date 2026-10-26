@@ -4,7 +4,7 @@
     <div class="code-sheet">
         <?php foreach ($batch['codes'] as $code): ?>
             <div class="code-ticket">
-                <img src="<?= url('assets/img/logo.svg') ?>" alt="" width="36" height="36">
+                <img src="<?= url('assets/img/logo.svg') ?>" alt="" width="42" height="36">
                 <div>
                     <p class="code-school">Centre Culturel Al Amine</p>
                     <p class="code-value"><?= e($code) ?></p>

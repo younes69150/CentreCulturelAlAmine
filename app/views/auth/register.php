@@ -1,6 +1,6 @@
 <section class="auth">
     <div class="auth-card auth-card-wide">
-        <img class="auth-logo" src="<?= url('assets/img/logo.svg') ?>" alt="" width="64" height="64">
+        <img class="auth-logo" src="<?= url('assets/img/logo.svg') ?>" alt="" width="75" height="64">
         <h1>Inscription</h1>
         <p class="muted">Utilisez le code personnel remis par l'école. Il ne fonctionne qu'une seule fois.</p>
         <form method="post" action="<?= url('inscription') ?>" class="form" novalidate>

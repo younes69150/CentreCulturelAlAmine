@@ -1,6 +1,6 @@
 <section class="auth">
     <div class="auth-card auth-card-wide">
-        <img class="auth-logo" src="<?= url('assets/img/logo.svg') ?>" alt="" width="64" height="64">
+        <img class="auth-logo" src="<?= url('assets/img/logo.svg') ?>" alt="" width="75" height="64">
         <h1>Installation</h1>
         <p class="muted">Création du premier compte administrateur. Cette page disparaît ensuite.</p>
         <form method="post" action="<?= url('installation') ?>" class="form">

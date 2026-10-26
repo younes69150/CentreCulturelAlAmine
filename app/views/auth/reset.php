@@ -1,6 +1,6 @@
 <section class="auth">
     <div class="auth-card">
-        <img class="auth-logo" src="<?= url('assets/img/logo.svg') ?>" alt="" width="64" height="64">
+        <img class="auth-logo" src="<?= url('assets/img/logo.svg') ?>" alt="" width="75" height="64">
         <h1>Nouveau mot de passe</h1>
         <form method="post" action="<?= url('mot-de-passe/nouveau') ?>" class="form">
             <?= csrf_field() ?>

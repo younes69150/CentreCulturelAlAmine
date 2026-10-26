@@ -26,9 +26,9 @@ $active = fn (string $prefix) => str_starts_with($path, $prefix) ? ' aria-curren
 <header class="site-header">
     <div class="container header-inner">
         <a class="brand" href="<?= url('/') ?>">
-            <img src="<?= url('assets/img/logo.svg') ?>" alt="" width="44" height="44">
+            <img src="<?= url('assets/img/logo.svg') ?>" alt="" width="51" height="44">
             <span class="brand-text">
-                <span class="brand-name">Centre Culturel Al Amine</span>
+                <span class="brand-name">Centre Culturel Al&nbsp;Amine</span>
                 <span class="brand-ar" lang="ar" dir="rtl">المركز الثقافي الأمين</span>
             </span>
         </a>
@@ -77,7 +77,7 @@ $active = fn (string $prefix) => str_starts_with($path, $prefix) ? ' aria-curren
 <?php if ($annonces): ?>
     <dialog class="annonces" id="annonces" data-autoshow>
         <div class="annonces-head">
-            <img src="<?= url('assets/img/logo.svg') ?>" alt="" width="36" height="36">
+            <img src="<?= url('assets/img/logo.svg') ?>" alt="" width="42" height="36">
             <h2><?= count($annonces) > 1 ? 'Messages de l\'école' : 'Message de l\'école' ?></h2>
         </div>
         <div class="annonces-body">

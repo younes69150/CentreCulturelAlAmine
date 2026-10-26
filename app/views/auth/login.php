@@ -1,6 +1,6 @@
 <section class="auth">
     <div class="auth-card">
-        <img class="auth-logo" src="<?= url('assets/img/logo.svg') ?>" alt="" width="64" height="64">
+        <img class="auth-logo" src="<?= url('assets/img/logo.svg') ?>" alt="" width="75" height="64">
         <h1>Connexion</h1>
         <p class="muted">Accédez à votre espace élève ou professeur.</p>
         <?php if ($error): ?><div class="alert alert-error" role="alert"><?= e($error) ?></div><?php endif; ?>

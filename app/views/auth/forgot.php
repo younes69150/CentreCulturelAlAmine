@@ -1,6 +1,6 @@
 <section class="auth">
     <div class="auth-card">
-        <img class="auth-logo" src="<?= url('assets/img/logo.svg') ?>" alt="" width="64" height="64">
+        <img class="auth-logo" src="<?= url('assets/img/logo.svg') ?>" alt="" width="75" height="64">
         <h1>Mot de passe oublié</h1>
         <?php if ($sent): ?>
             <div class="alert alert-success" role="status">Si un compte existe avec l'adresse <strong><?= e($email) ?></strong>, un e-mail vient d'être envoyé avec un lien valable une heure. Pensez à regarder dans les spams.</div>
