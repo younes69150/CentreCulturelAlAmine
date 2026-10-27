@@ -36,10 +36,24 @@
 </section>
 
 <section class="container narrow how">
-    <h2>Comment obtenir un compte ?</h2>
+    <h2>Comment obtenir un compte&nbsp;?</h2>
     <ol class="steps">
         <li><strong>L'école vous remet un code</strong> personnel à usage unique.</li>
         <li><strong>Créez votre compte</strong> avec ce code, votre e-mail et un mot de passe.</li>
         <li><strong>Connectez-vous</strong> pour voir les actualités et documents de votre classe.</li>
     </ol>
 </section>
+
+<?php $legal = config('legal') ?? []; $mail = $legal['email'] ?? ''; $tel = $legal['telephone'] ?? ''; ?>
+<?php if ($mail || $tel): ?>
+<section class="container narrow">
+    <div class="cta">
+        <h2>Vous souhaitez inscrire votre enfant&nbsp;?</h2>
+        <p>Contactez l'école : nous vous présentons les cours et vous remettons votre code d'inscription.</p>
+        <div class="cta-actions">
+            <?php if ($mail): ?><a class="btn btn-primary" href="mailto:<?= e($mail) ?>?subject=<?= rawurlencode('Inscription au Centre Culturel Al Amine') ?>">Contacter l'école</a><?php endif; ?>
+            <?php if ($tel): ?><a class="btn btn-ghost" href="tel:<?= e(preg_replace('/[^\d+]/', '', $tel)) ?>">Appeler le <?= e($tel) ?></a><?php endif; ?>
+        </div>
+    </div>
+</section>
+<?php endif; ?>

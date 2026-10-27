@@ -6,7 +6,8 @@
     --primary-soft: #E5E9F1;
     --gold: #C49A3A;
     --gold-soft: #F3E8CF;
-    --gold-ink: #7E5E17;
+    --gold-ink: #6E5212;
+    --gold-text: #86651C; /* or lisible sur fond clair (contraste ≥ 4,5) */
     --bg: #F6F5F1;
     --surface: #FFFFFF;
     --ink: #182033;
@@ -81,7 +82,7 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .92em;
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--primary-dark); }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
 .brand-name { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; text-transform: uppercase; letter-spacing: .02em; line-height: 1; }
-.brand-ar { font-family: var(--font-ar); font-weight: 700; color: var(--gold); font-size: .9rem; text-align: left; line-height: 1.5; }
+.brand-ar { font-family: var(--font-ar); font-weight: 700; color: var(--gold-text); font-size: .9rem; text-align: left; line-height: 1.5; }
 .brand img { height: 44px; width: auto; }
 .main-nav { display: flex; align-items: center; gap: 4px; }
 .main-nav a, .link-button {
@@ -358,3 +359,42 @@ html.page-auth::-webkit-scrollbar { display: none; }
     .page-auth .auth-card h1 { font-size: 1.8rem; margin-bottom: 0; }
     .page-auth .footer-inner { padding-top: 8px; padding-bottom: 8px; font-size: .8rem; }
 }
+.footer-links { display: flex; gap: 6px 18px; flex-wrap: wrap; }
+::placeholder { color: #6B7280; opacity: 1; }
+/* Champ piège anti-robots : invisible pour les humains et les lecteurs d'écran */
+.hp-field { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Statistiques : barres sans style inline (CSP) */
+.bars { display: flex; align-items: flex-end; gap: 3px; height: 160px; padding-top: 8px; border-bottom: 1px solid var(--line); }
+.bar { flex: 1; height: 100%; display: flex; align-items: flex-end; }
+.bar span { display: block; width: 100%; background: var(--primary); border-radius: 3px 3px 0 0; min-height: 2px; }
+.bar:hover span { background: var(--gold); }
+.bar .h0 { height: 0%; }
+.bar .h1 { height: 5%; }
+.bar .h2 { height: 10%; }
+.bar .h3 { height: 15%; }
+.bar .h4 { height: 20%; }
+.bar .h5 { height: 25%; }
+.bar .h6 { height: 30%; }
+.bar .h7 { height: 35%; }
+.bar .h8 { height: 40%; }
+.bar .h9 { height: 45%; }
+.bar .h10 { height: 50%; }
+.bar .h11 { height: 55%; }
+.bar .h12 { height: 60%; }
+.bar .h13 { height: 65%; }
+.bar .h14 { height: 70%; }
+.bar .h15 { height: 75%; }
+.bar .h16 { height: 80%; }
+.bar .h17 { height: 85%; }
+.bar .h18 { height: 90%; }
+.bar .h19 { height: 95%; }
+.bar .h20 { height: 100%; }
+.bars-axis { display: flex; justify-content: space-between; margin-top: 6px; }
+
+/* Appel à l'action visiteurs */
+.cta { background: var(--gold-soft); border: 1px solid #E6D3A6; border-radius: var(--radius); padding: 28px; margin: 8px auto 48px; text-align: center; }
+.cta h2 { margin-top: 0; }
+.cta p { color: var(--ink); margin: 0 auto 18px; max-width: 52ch; }
+.cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.error-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }

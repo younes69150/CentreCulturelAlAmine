@@ -23,6 +23,9 @@ function render(string $view, array $data = [], string $layout = 'layout'): void
     require view_path($view);
     $content = ob_get_clean();
     require view_path($layout);
+    if ($layout === 'layout') {
+        track_page_view();
+    }
 }
 
 function send_security_headers(): void

@@ -14,6 +14,11 @@ function forgot_submit(): void
     $ipKey = 'forgot-ip:' . client_ip();
     $emailKey = 'forgot:' . $email;
 
+    if (looks_like_spam(2)) {
+        // Même réponse qu'un envoi normal : le robot n'apprend rien.
+        render('auth/forgot', ['title' => 'Mot de passe oublié', 'email' => $email, 'sent' => true, 'error' => null]);
+        return;
+    }
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         render('auth/forgot', ['title' => 'Mot de passe oublié', 'email' => $email, 'sent' => false, 'error' => 'Adresse e-mail invalide.']);
         return;

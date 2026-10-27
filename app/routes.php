@@ -13,7 +13,11 @@ return [
     ['POST', '/mot-de-passe-oublie', 'forgot_submit'],
     ['GET',  '/mot-de-passe/nouveau', 'reset_form'],
     ['POST', '/mot-de-passe/nouveau', 'reset_submit'],
-    ['GET',  '/confidentialite', 'privacy'],
+    ['GET',  '/mentions-legales', 'legal_mentions'],
+    ['GET',  '/confidentialite', 'legal_privacy'],
+    ['GET',  '/cgu', 'legal_cgu'],
+    ['GET',  '/robots.txt', 'robots_txt'],
+    ['GET',  '/sitemap.xml', 'sitemap_xml'],
     ['GET',  '/installation', 'install_form'],
     ['POST', '/installation', 'install_submit'],
 
@@ -25,6 +29,7 @@ return [
     ['POST', '/mon-compte/mot-de-passe', 'account_password'],
 
     ['GET',  '/admin', 'admin_dashboard'],
+    ['GET',  '/admin/statistiques', 'admin_stats'],
 
     ['GET',  '/admin/actualites', 'admin_news_index'],
     ['GET',  '/admin/actualites/nouvelle', 'admin_news_create'],

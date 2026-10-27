@@ -13,9 +13,34 @@ $active = fn (string $prefix) => str_starts_with($path, $prefix) ? ' aria-curren
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= e($title ?? '') ?> · <?= e(config('app.name')) ?></title>
-    <meta name="robots" content="noindex">
+<?php
+    $pageTitle = ($title ?? '') !== '' && ($title ?? '') !== 'Accueil' ? $title . ' · ' . config('app.name') : config('app.name') . ' · Espace élèves et professeurs';
+    $pageDescription = $description ?? 'Espace en ligne des élèves et professeurs du Centre Culturel Al Amine : actualités, documents de cours et messages de l\'école.';
+    $siteUrl = rtrim((string) config('app.url'), '/');
+    $canonical = $siteUrl . parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+?>
+    <title><?= e($pageTitle) ?></title>
+    <meta name="description" content="<?= e($pageDescription) ?>">
+    <meta name="robots" content="<?= !empty($indexable) ? 'index, follow' : 'noindex, nofollow' ?>">
+    <?php if (!empty($indexable)): ?><link rel="canonical" href="<?= e($canonical) ?>"><?php endif; ?>
+    <?php if (config('seo.google_verification')): ?><meta name="google-site-verification" content="<?= e(config('seo.google_verification')) ?>"><?php endif; ?>
+    <meta name="theme-color" content="#14223F">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="<?= e(config('app.name')) ?>">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:title" content="<?= e($pageTitle) ?>">
+    <meta property="og:description" content="<?= e($pageDescription) ?>">
+    <meta property="og:url" content="<?= e($canonical) ?>">
+    <meta property="og:image" content="<?= e($siteUrl) ?>/assets/img/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Logo du Centre Culturel Al Amine">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="<?= url('favicon.ico') ?>" sizes="32x32">
     <link rel="icon" href="<?= url('assets/img/logo.svg') ?>" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="<?= url('assets/img/apple-touch-icon.png') ?>">
+    <link rel="manifest" href="<?= url('site.webmanifest') ?>">
+    <link rel="preload" href="<?= url('assets/fonts/inter-400-latin.woff2') ?>" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="<?= url('assets/css/fonts.css') ?>">
     <link rel="stylesheet" href="<?= url('assets/css/style.css') ?>">
     <script src="<?= url('assets/js/app.js') ?>" defer></script>
@@ -70,7 +95,11 @@ $active = fn (string $prefix) => str_starts_with($path, $prefix) ? ' aria-curren
 <footer class="site-footer">
     <div class="container footer-inner">
         <span>© <?= date('Y') ?> Centre Culturel Al Amine</span>
-        <a href="<?= url('confidentialite') ?>">Confidentialité et mentions légales</a>
+        <nav class="footer-links" aria-label="Informations légales">
+            <a href="<?= url('mentions-legales') ?>">Mentions légales</a>
+            <a href="<?= url('confidentialite') ?>">Confidentialité</a>
+            <a href="<?= url('cgu') ?>">CGU</a>
+        </nav>
     </div>
 </footer>
 

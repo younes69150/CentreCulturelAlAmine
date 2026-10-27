@@ -27,6 +27,12 @@ return [
         'adresse'     => 'Adresse à compléter',
         'responsable' => 'Nom du président ou de la présidente',
         'email'       => 'contact@votre-domaine.fr',
+        'telephone'   => '',          // facultatif, affiché sur l'accueil et les mentions légales
+        'rna'         => '',          // numéro d'association W…, facultatif
+    ],
+    'seo' => [
+        // Code de vérification Google Search Console (balise HTML), facultatif.
+        'google_verification' => '',
     ],
     'db' => [
         'host'    => 'localhost',

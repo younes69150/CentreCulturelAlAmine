@@ -6,6 +6,7 @@
         <?php if ($error): ?><div class="alert alert-error" role="alert"><?= e($error) ?></div><?php endif; ?>
         <form method="post" action="<?= url('connexion') ?>" class="form">
             <?= csrf_field() ?>
+            <?= antispam_fields() ?>
             <div class="field">
                 <label for="email">Adresse e-mail</label>
                 <input id="email" name="email" type="email" value="<?= e($email) ?>" autocomplete="username" required autofocus>

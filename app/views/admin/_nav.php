@@ -8,6 +8,7 @@ $links = [
     ['admin/messages', 'Messages', false],
     ['admin/classes', 'Classes', true],
     ['admin/utilisateurs', 'Utilisateurs', true],
+    ['admin/statistiques', 'Statistiques', true],
 ];
 ?>
 <nav class="admin-nav" aria-label="Administration">

@@ -110,3 +110,11 @@ CREATE TABLE attempts (
     created_at DATETIME NOT NULL,
     KEY idx_attempts (cle, created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Mesure d'audience sans cookie : nombre de pages vues par jour (aucune donnée personnelle).
+CREATE TABLE page_views (
+    day   DATE NOT NULL,
+    path  VARCHAR(100) NOT NULL,
+    views INT UNSIGNED NOT NULL DEFAULT 0,
+    PRIMARY KEY (day, path)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

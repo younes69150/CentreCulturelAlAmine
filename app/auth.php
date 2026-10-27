@@ -98,6 +98,7 @@ function login_user(array $user): void
     $_SESSION['csrf'] = bin2hex(random_bytes(32));
     $_SESSION['show_annonces'] = true;
     db_run('UPDATE users SET last_login_at = ? WHERE id = ?', [now(), $user['id']]);
+    track_view('(connexion réussie)');
 }
 
 function logout_user(): void

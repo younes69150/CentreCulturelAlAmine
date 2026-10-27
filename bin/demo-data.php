@@ -95,6 +95,17 @@ foreach ([[$n1, 'Famille Benali (frère)'], [$n2, null], [$adultes, null]] as [$
     $codes[] = $code;
 }
 
+// Statistiques de fréquentation fictives sur 30 jours.
+$pages = ['/' => 25, '/connexion' => 18, '/actualites' => 30, '/actualites/{id}' => 14, '/documents' => 20, '/mon-compte' => 3, '(connexion réussie)' => 15, '(page introuvable)' => 1];
+for ($i = 29; $i >= 0; $i--) {
+    $day = date('Y-m-d', strtotime("-$i days"));
+    $weekend = in_array(date('N', strtotime($day)), ['6', '7'], true) ? 1.8 : 1;
+    foreach ($pages as $path => $avg) {
+        $views = (int) round($avg * $weekend * random_int(40, 130) / 100);
+        if ($views > 0) db_run('INSERT INTO page_views (day, path, views) VALUES (?, ?, ?)', [$day, $path, $views]);
+    }
+}
+
 echo "Données fictives créées. Mot de passe de tous les comptes : " . DEMO_PASSWORD . "\n";
 echo "  Admin       : admin@demo.local\n";
 echo "  Professeur  : prof@demo.local\n";

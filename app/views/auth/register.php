@@ -5,6 +5,7 @@
         <p class="muted">Avec le code remis par l'école. Déjà inscrit ? <a href="<?= url('connexion') ?>">Se connecter</a></p>
         <form method="post" action="<?= url('inscription') ?>" class="form" novalidate>
             <?= csrf_field() ?>
+            <?= antispam_fields() ?>
             <div class="grid-2">
                 <div class="field">
                     <label for="code">Code d'inscription</label>
@@ -41,7 +42,7 @@
             <div class="field">
                 <label class="check check-consent">
                     <input type="checkbox" name="consent" value="1" required<?= !empty($old['consent']) ? ' checked' : '' ?>>
-                    <span>J'ai lu la <a href="<?= url('confidentialite') ?>" target="_blank">politique de confidentialité</a>. Si l'élève a moins de 15 ans, je suis son parent ou j'ai son accord.</span>
+                    <span>J'accepte les <a href="<?= url('cgu') ?>" target="_blank">CGU</a> et j'ai lu la <a href="<?= url('confidentialite') ?>" target="_blank">politique de confidentialité</a>. Si l'élève a moins de 15 ans, je suis son parent ou j'ai son accord.</span>
                 </label>
                 <?php partial('partials/field_error', ['errors' => $errors, 'field' => 'consent']) ?>
             </div>

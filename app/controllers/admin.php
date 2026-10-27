@@ -460,3 +460,36 @@ function admin_users_delete(int $id): void
     flash('success', 'Compte de ' . $target['prenom'] . ' ' . $target['nom'] . ' supprimé.');
     redirect('/admin/utilisateurs');
 }
+
+// --- Statistiques ---------------------------------------------------------
+
+const STATS_LABELS = [
+    '/' => 'Accueil',
+    '/connexion' => 'Connexion',
+    '/inscription' => 'Inscription',
+    '/actualites' => 'Actualités',
+    '/actualites/{id}' => 'Lecture d\'une actualité',
+    '/documents' => 'Documents',
+    '/mon-compte' => 'Mon compte',
+    '/mot-de-passe-oublie' => 'Mot de passe oublié',
+    '/mentions-legales' => 'Mentions légales',
+    '/confidentialite' => 'Confidentialité',
+    '/cgu' => 'CGU',
+];
+
+function admin_stats(): void
+{
+    require_admin();
+    $since = date('Y-m-d', strtotime('-29 days'));
+    $rows = db_all("SELECT day, SUM(views) AS v FROM page_views WHERE day >= ? AND path NOT LIKE '(%' GROUP BY day", [$since]);
+    $byDay = array_column($rows, 'v', 'day');
+    $days = [];
+    for ($i = 29; $i >= 0; $i--) {
+        $d = date('Y-m-d', strtotime("-$i days"));
+        $days[$d] = (int) ($byDay[$d] ?? 0);
+    }
+    $pages = db_all("SELECT path, SUM(views) AS v FROM page_views WHERE day >= ? AND path NOT LIKE '(%' AND path NOT LIKE '/admin%' GROUP BY path ORDER BY v DESC LIMIT 12", [$since]);
+    $logins = (int) db_value("SELECT COALESCE(SUM(views), 0) FROM page_views WHERE day >= ? AND path = '(connexion réussie)'", [$since]);
+    $notFound = (int) db_value("SELECT COALESCE(SUM(views), 0) FROM page_views WHERE day >= ? AND path = '(page introuvable)'", [$since]);
+    render('admin/stats', ['title' => 'Statistiques', 'days' => $days, 'pages' => $pages, 'logins' => $logins, 'notFound' => $notFound]);
+}

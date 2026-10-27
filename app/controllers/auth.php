@@ -6,7 +6,8 @@ function home(): void
     if (current_user()) {
         redirect('/actualites');
     }
-    render('home', ['title' => 'Accueil']);
+    render('home', ['title' => 'Accueil', 'indexable' => true,
+        'description' => 'Centre Culturel Al Amine : l\'espace en ligne des élèves et des professeurs. Actualités, documents de cours et messages de l\'école.']);
 }
 
 function login_form(): void
@@ -23,6 +24,12 @@ function login_submit(): void
     $password = (string) ($_POST['password'] ?? '');
     $ipKey = 'login-ip:' . client_ip();
     $emailKey = 'login:' . $email;
+
+    if (looks_like_spam()) {
+        record_attempt($ipKey);
+        render('auth/login', ['title' => 'Connexion', 'email' => $email, 'error' => 'E-mail ou mot de passe incorrect.']);
+        return;
+    }
 
     if (too_many_attempts($ipKey, 30, 15) || too_many_attempts($emailKey, 5, 15)) {
         http_response_code(429);
@@ -93,7 +100,13 @@ function register_submit(): void
     if ($old['nom'] === '') $errors['nom'] = 'Indiquez votre nom.';
     if (!filter_var($old['email'], FILTER_VALIDATE_EMAIL)) $errors['email'] = 'Adresse e-mail invalide.';
     if ($err = password_error($password, $confirm)) $errors['password'] = $err;
-    if (!$old['consent']) $errors['consent'] = 'Merci de confirmer avoir lu la politique de confidentialité.';
+    if (looks_like_spam(3)) {
+        record_attempt($ipKey);
+        $errors['code'] = 'Envoi refusé. Patientez quelques secondes puis réessayez.';
+        render('auth/register', ['title' => 'Inscription', 'old' => $old, 'errors' => $errors]);
+        return;
+    }
+    if (!$old['consent']) $errors['consent'] = 'Merci d\'accepter les CGU et la politique de confidentialité.';
     if (strlen(normalize_code($old['code'])) !== 12) $errors['code'] = 'Le code doit contenir 12 caractères (ex. ABCD-EFGH-JKLM).';
 
     if (!$errors) {
@@ -197,7 +210,52 @@ function install_submit(): void
     redirect('/admin/classes');
 }
 
-function privacy(): void
+function legal_mentions(): void
 {
-    render('privacy', ['title' => 'Confidentialité et mentions légales']);
+    render('legal/mentions', ['title' => 'Mentions légales', 'indexable' => true,
+        'description' => 'Mentions légales du site du Centre Culturel Al Amine : éditeur, hébergeur, propriété intellectuelle.']);
+}
+
+function legal_privacy(): void
+{
+    render('legal/confidentialite', ['title' => 'Politique de confidentialité', 'indexable' => true,
+        'description' => 'Données collectées, cookies, mesure d\'audience anonyme et droits RGPD sur le site du Centre Culturel Al Amine.']);
+}
+
+function legal_cgu(): void
+{
+    render('legal/cgu', ['title' => 'Conditions générales d\'utilisation', 'indexable' => true,
+        'description' => 'Conditions d\'utilisation de l\'espace en ligne des élèves et professeurs du Centre Culturel Al Amine.']);
+}
+
+// --- Référencement -----------------------------------------------------------
+
+/** Seules les pages publiques sont proposées aux moteurs de recherche. */
+const PUBLIC_PAGES = ['/', '/mentions-legales', '/confidentialite', '/cgu'];
+
+function robots_txt(): void
+{
+    header('Content-Type: text/plain; charset=UTF-8');
+    $lines = ['User-agent: *'];
+    foreach (PUBLIC_PAGES as $page) {
+        $lines[] = 'Allow: ' . $page . '$';
+    }
+    $lines[] = 'Allow: /assets/';
+    $lines[] = 'Disallow: /';
+    $lines[] = '';
+    $lines[] = 'Sitemap: ' . rtrim((string) config('app.url'), '/') . '/sitemap.xml';
+    echo implode("\n", $lines) . "\n";
+}
+
+function sitemap_xml(): void
+{
+    header('Content-Type: application/xml; charset=UTF-8');
+    $base = rtrim((string) config('app.url'), '/');
+    echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+    foreach (PUBLIC_PAGES as $page) {
+        printf("  <url><loc>%s</loc><changefreq>%s</changefreq><priority>%s</priority></url>\n",
+            e($base . $page), $page === '/' ? 'weekly' : 'yearly', $page === '/' ? '1.0' : '0.3');
+    }
+    echo "</urlset>\n";
 }

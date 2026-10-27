@@ -17,6 +17,7 @@ require BASE_PATH . '/app/csrf.php';
 require BASE_PATH . '/app/view.php';
 require BASE_PATH . '/app/uploads.php';
 require BASE_PATH . '/app/mail.php';
+require BASE_PATH . '/app/stats.php';
 
 date_default_timezone_set(config('app.timezone', 'Europe/Paris'));
 error_reporting(E_ALL);
