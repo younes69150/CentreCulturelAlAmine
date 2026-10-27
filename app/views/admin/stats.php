@@ -4,7 +4,7 @@
     <div class="stats">
         <div class="stat"><strong><?= $total ?></strong><span>pages vues</span></div>
         <div class="stat"><strong><?= $logins ?></strong><span>connexions</span></div>
-        <div class="stat"><strong><?= round($total / 30, 1) ?></strong><span>pages vues par jour</span></div>
+        <div class="stat"><strong><?= str_replace('.', ',', (string) round($total / 30, 1)) ?></strong><span>pages vues par jour</span></div>
         <div class="stat"><strong><?= $notFound ?></strong><span>liens cassés visités</span></div>
     </div>
 
