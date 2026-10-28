@@ -1,0 +1,6 @@
+# Utilisé seulement si la racine du domaine pointe sur le dossier du projet
+# au lieu de /public (voir README). Tout est renvoyé vers /public.
+Options -Indexes
+RewriteEngine On
+RewriteRule ^(app|config|database|storage|bin|\.git)(/|$) - [F,L]
+RewriteRule ^(.*)$ public/$1 [L]

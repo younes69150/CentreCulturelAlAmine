@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 530 454" role="img" aria-label="Centre Culturel Al Amine">
+  <g fill="#14223F">
+    <rect x="0" y="0" width="169" height="358"/>
+    <rect x="181" y="0" width="169" height="358"/>
+    <rect x="0" y="370" width="169" height="84"/>
+    <rect x="181" y="370" width="169" height="84"/>
+  </g>
+  <g fill="#C49A3A">
+    <rect x="361" y="0" width="169" height="358"/>
+    <rect x="361" y="370" width="169" height="84"/>
+  </g>
+  <g fill="none" stroke="#FFFFFF" stroke-width="8">
+    <path d="M139 79H58v209h81"/>
+    <path d="M320 79H239v209h81"/>
+    <path d="M408 292V79h75v213M408 188h75"/>
+  </g>
+</svg>

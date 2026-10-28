@@ -1,0 +1,8 @@
+/config/config.php
+/storage/uploads/*
+/storage/logs/*
+/storage/sessions/*
+/storage/backups/*
+!/storage/**/.gitkeep
+!/storage/.htaccess
+.DS_Store
