@@ -24,6 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Notifications : fermeture au clic, et automatique après 5 s pour les succès
+    const dismiss = (toast) => {
+        toast.classList.add('is-leaving');
+        setTimeout(() => toast.remove(), 200);
+    };
+    document.querySelectorAll('.toast').forEach((toast) => {
+        toast.querySelector('[data-dismiss]')?.addEventListener('click', () => dismiss(toast));
+        if (toast.classList.contains('toast-success')) setTimeout(() => dismiss(toast), 5000);
+    });
+
     // Confirmation avant suppression
     document.querySelectorAll('form[data-confirm]').forEach((form) => {
         form.addEventListener('submit', (e) => {

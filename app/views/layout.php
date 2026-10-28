@@ -93,9 +93,13 @@ $active = fn (string $prefix) => str_starts_with($path, $prefix) ? ' aria-curren
         </div>
     <?php endforeach; endif; ?>
     <?php if ($flashes): ?>
-        <div class="container flashes">
+        <div class="toasts" aria-live="polite">
             <?php foreach ($flashes as $f): ?>
-                <div class="alert alert-<?= e($f['type']) ?>" role="status"><?= e($f['message']) ?></div>
+                <div class="toast toast-<?= e($f['type']) ?>" role="<?= $f['type'] === 'error' ? 'alert' : 'status' ?>">
+                    <span class="toast-icon" aria-hidden="true"><?php if ($f['type'] === 'success'): ?><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><?php else: ?><svg viewBox="0 0 24 24"><path d="M12 7v6m0 4h.01"/></svg><?php endif; ?></span>
+                    <p><?= e($f['message']) ?></p>
+                    <button type="button" class="toast-close" data-dismiss aria-label="Fermer">×</button>
+                </div>
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
