@@ -8,9 +8,10 @@
         <div class="empty"><p>Aucun document pour le moment.</p></div>
     <?php else: ?>
         <ul class="doc-list">
-            <?php foreach ($documents as $d): ?>
+            <?php foreach ($documents as $d):
+                $ext = strtoupper(pathinfo($d['nom_original'], PATHINFO_EXTENSION)); ?>
                 <li class="doc">
-                    <?php partial('partials/file_icon', ['name' => $d['nom_original']]) ?>
+                    <span class="doc-ext" aria-hidden="true"><?= e($ext) ?></span>
                     <div class="doc-body">
                         <h2><?= e($d['titre']) ?></h2>
                         <?php if ($d['description']): ?><p><?= e($d['description']) ?></p><?php endif; ?>

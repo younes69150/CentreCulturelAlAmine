@@ -14,15 +14,9 @@
                         <td class="nowrap"><?= e(format_date($n['created_at'])) ?></td>
                         <td class="right actions">
                             <a class="btn btn-ghost btn-sm" href="<?= url('admin/actualites/' . (int) $n['id']) ?>">Modifier</a>
-<details class="row-menu">
-                                <summary class="btn btn-ghost btn-sm" aria-label="Plus d'actions">⋯</summary>
-                                <div class="row-menu-pop">
-                                    <a class="menu-item" href="<?= url('actualites/' . (int) $n['id']) ?>">Voir côté élève</a>
-                                    <form method="post" action="<?= url('admin/actualites/' . (int) $n['id'] . '/supprimer') ?>" data-confirm="Supprimer cette actualité ?">
-                                        <?= csrf_field() ?><button class="menu-item menu-danger">Supprimer</button>
-                                    </form>
-                                </div>
-                            </details>
+                            <form method="post" action="<?= url('admin/actualites/' . (int) $n['id'] . '/supprimer') ?>" class="inline" data-confirm="Supprimer cette actualité ?">
+                                <?= csrf_field() ?><button class="btn btn-danger btn-sm">Supprimer</button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>
