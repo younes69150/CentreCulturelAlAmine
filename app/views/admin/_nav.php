@@ -6,6 +6,7 @@ $links = [
     ['admin/actualites', 'Actualités', false],
     ['admin/documents', 'Documents', false],
     ['admin/messages', 'Messages', false],
+    ['admin/direct', 'Direct', false],
     ['admin/classes', 'Classes', true],
     ['admin/utilisateurs', 'Utilisateurs', true],
     ['admin/statistiques', 'Statistiques', true],

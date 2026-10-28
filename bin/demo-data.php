@@ -95,6 +95,12 @@ foreach ([[$n1, 'Famille Benali (frère)'], [$n2, null], [$adultes, null]] as [$
     $codes[] = $code;
 }
 
+// Cours en direct fictif, programmé dans 2 jours pour tout le monde.
+db_insert(
+    'INSERT INTO lives (titre, classe_id, debut, duree, lien, auteur_id, created_at, updated_at) VALUES (?, NULL, ?, 60, ?, ?, ?, ?)',
+    ['Révision avant les vacances', date('Y-m-d 10:00:00', strtotime('+2 days')), 'https://meet.jit.si/CCAlAmine-Demo-' . bin2hex(random_bytes(6)), $admin, now(), now()]
+);
+
 // Statistiques de fréquentation fictives sur 30 jours.
 $pages = ['/' => 25, '/connexion' => 18, '/actualites' => 30, '/actualites/{id}' => 14, '/documents' => 20, '/mon-compte' => 3, '(connexion réussie)' => 15, '(page introuvable)' => 1];
 for ($i = 29; $i >= 0; $i--) {

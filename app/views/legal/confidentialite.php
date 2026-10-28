@@ -21,6 +21,9 @@
     <h2>Élèves mineurs</h2>
     <p>Pour un élève de moins de 15 ans, le compte doit être créé par l'un de ses parents ou avec son accord.</p>
 
+    <h2>Cours en direct</h2>
+    <p>Les cours en direct se déroulent sur un service de visioconférence externe (Jitsi Meet par défaut, ou Google Meet, Zoom ou Teams selon le lien donné par le professeur). En cliquant sur « Rejoindre le direct », vous quittez ce site : le service choisi traite alors votre image, votre voix et le nom que vous saisissez, selon sa propre politique de confidentialité. Les cours ne sont pas enregistrés par l'école. Vous pouvez participer caméra coupée.</p>
+
     <h2>Cookies</h2>
     <p>Le site dépose un seul cookie, nécessaire à la connexion (« ccalamine »). Il est supprimé à la fermeture du navigateur ou à la déconnexion. Ce cookie étant indispensable au service, il ne demande pas de consentement : c'est pourquoi le site n'affiche pas de bandeau cookies.</p>
 

@@ -24,12 +24,21 @@ return [
     ['GET',  '/actualites', 'news_index'],
     ['GET',  '/actualites/(\d+)', 'news_show'],
     ['GET',  '/documents', 'documents_index'],
+    ['GET',  '/direct', 'lives_index'],
     ['GET',  '/documents/(\d+)/telecharger', 'documents_download'],
     ['GET',  '/mon-compte', 'account_show'],
     ['POST', '/mon-compte/mot-de-passe', 'account_password'],
 
     ['GET',  '/admin', 'admin_dashboard'],
     ['GET',  '/admin/statistiques', 'admin_stats'],
+
+    ['GET',  '/admin/direct', 'admin_lives_index'],
+    ['GET',  '/admin/direct/nouveau', 'admin_lives_create'],
+    ['POST', '/admin/direct/nouveau', 'admin_lives_store'],
+    ['GET',  '/admin/direct/(\d+)', 'admin_lives_edit'],
+    ['POST', '/admin/direct/(\d+)', 'admin_lives_update'],
+    ['POST', '/admin/direct/(\d+)/terminer', 'admin_lives_end'],
+    ['POST', '/admin/direct/(\d+)/supprimer', 'admin_lives_delete'],
 
     ['GET',  '/admin/actualites', 'admin_news_index'],
     ['GET',  '/admin/actualites/nouvelle', 'admin_news_create'],

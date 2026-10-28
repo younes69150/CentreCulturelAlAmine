@@ -387,7 +387,7 @@ function admin_classes_delete(int $id): void
         db_run('DELETE FROM classes WHERE id = ?', [$id]);
         flash('success', 'Classe supprimée.');
     } catch (PDOException) {
-        flash('error', 'Impossible : des élèves, codes, actualités, documents ou messages sont encore liés à cette classe.');
+        flash('error', 'Impossible : des élèves, codes, actualités, documents, messages ou cours en direct sont encore liés à cette classe.');
     }
     redirect('/admin/classes');
 }
@@ -470,6 +470,7 @@ const STATS_LABELS = [
     '/actualites' => 'Actualités',
     '/actualites/{id}' => 'Lecture d\'une actualité',
     '/documents' => 'Documents',
+    '/direct' => 'Cours en direct',
     '/mon-compte' => 'Mon compte',
     '/mot-de-passe-oublie' => 'Mot de passe oublié',
     '/mentions-legales' => 'Mentions légales',

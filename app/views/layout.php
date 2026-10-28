@@ -64,6 +64,7 @@ $active = fn (string $prefix) => str_starts_with($path, $prefix) ? ' aria-curren
             <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
                 <a href="<?= url('actualites') ?>"<?= $active('/actualites') ?>>Actualités</a>
                 <a href="<?= url('documents') ?>"<?= $active('/documents') ?>>Documents</a>
+                <a href="<?= url('direct') ?>"<?= $active('/direct') ?>>Direct</a>
                 <?php if (is_staff($user)): ?>
                     <a href="<?= url('admin') ?>"<?= $active('/admin') ?>>Administration</a>
                 <?php endif; ?>
@@ -82,6 +83,15 @@ $active = fn (string $prefix) => str_starts_with($path, $prefix) ? ' aria-curren
 </header>
 
 <main id="contenu">
+    <?php if ($user): foreach (current_lives($user) as $live): ?>
+        <div class="live-bar" role="status">
+            <div class="container live-bar-inner">
+                <span class="live-dot" aria-hidden="true"></span>
+                <span><strong>En direct</strong> · <?= e($live['titre']) ?><?= $live['classe_nom'] ? ' · ' . e($live['classe_nom']) : '' ?> · <?= e(date('H\hi', strtotime($live['debut']))) ?></span>
+                <a class="btn btn-gold btn-sm" href="<?= e($live['lien']) ?>" target="_blank" rel="noopener noreferrer">Rejoindre le direct</a>
+            </div>
+        </div>
+    <?php endforeach; endif; ?>
     <?php if ($flashes): ?>
         <div class="container flashes">
             <?php foreach ($flashes as $f): ?>
