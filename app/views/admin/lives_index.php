@@ -18,14 +18,21 @@
                         <td class="right actions">
                             <?php if ($etat !== 'termine'): ?>
                                 <a class="btn btn-primary btn-sm" href="<?= e($l['lien']) ?>" target="_blank" rel="noopener noreferrer">Ouvrir la visio</a>
-                                <a class="btn btn-ghost btn-sm" href="<?= url('admin/direct/' . (int) $l['id']) ?>">Modifier</a>
-                                <form method="post" action="<?= url('admin/direct/' . (int) $l['id'] . '/terminer') ?>" class="inline" data-confirm="Terminer ce cours ? Le lien ne sera plus affiché.">
-                                    <?= csrf_field() ?><button class="btn btn-ghost btn-sm">Terminer</button>
-                                </form>
                             <?php endif; ?>
-                            <form method="post" action="<?= url('admin/direct/' . (int) $l['id'] . '/supprimer') ?>" class="inline" data-confirm="Supprimer ce cours ?">
-                                <?= csrf_field() ?><button class="btn btn-danger btn-sm">Supprimer</button>
-                            </form>
+                            <details class="row-menu">
+                                <summary class="btn btn-ghost btn-sm" aria-label="Plus d'actions">⋯</summary>
+                                <div class="row-menu-pop">
+                                    <?php if ($etat !== 'termine'): ?>
+                                        <a class="menu-item" href="<?= url('admin/direct/' . (int) $l['id']) ?>">Modifier</a>
+                                        <form method="post" action="<?= url('admin/direct/' . (int) $l['id'] . '/terminer') ?>" data-confirm="Terminer ce cours ? Le lien ne sera plus affiché.">
+                                            <?= csrf_field() ?><button class="menu-item">Terminer maintenant</button>
+                                        </form>
+                                    <?php endif; ?>
+                                    <form method="post" action="<?= url('admin/direct/' . (int) $l['id'] . '/supprimer') ?>" data-confirm="Supprimer ce cours ?">
+                                        <?= csrf_field() ?><button class="menu-item menu-danger">Supprimer</button>
+                                    </form>
+                                </div>
+                            </details>
                         </td>
                     </tr>
                 <?php endforeach; ?>

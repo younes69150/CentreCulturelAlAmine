@@ -32,14 +32,19 @@
                         <tbody>
                         <?php foreach ($documents as $d): ?>
                             <tr>
-                                <td><strong><?= e($d['titre']) ?></strong><br><span class="muted small"><?= e($d['nom_original']) ?> · <?= e(format_date($d['created_at'])) ?></span></td>
+                                <td><div class="doc-cell"><?php partial('partials/file_icon', ['name' => $d['nom_original'], 'small' => true]) ?><div><strong><?= e($d['titre']) ?></strong><br><span class="muted small"><?= e($d['nom_original']) ?> · <?= e(format_date($d['created_at'])) ?></span></div></div></td>
                                 <td><?php partial('partials/audience', ['classe' => $d['classe_nom']]) ?></td>
                                 <td class="nowrap"><?= e(human_size((int) $d['taille'])) ?></td>
                                 <td class="right actions">
                                     <a class="btn btn-ghost btn-sm" href="<?= url('documents/' . (int) $d['id'] . '/telecharger') ?>">Ouvrir</a>
-                                    <form method="post" action="<?= url('admin/documents/' . (int) $d['id'] . '/supprimer') ?>" class="inline" data-confirm="Supprimer ce document ?">
-                                        <?= csrf_field() ?><button class="btn btn-danger btn-sm">Supprimer</button>
+<details class="row-menu">
+                                <summary class="btn btn-ghost btn-sm" aria-label="Plus d'actions">⋯</summary>
+                                <div class="row-menu-pop">
+                                    <form method="post" action="<?= url('admin/documents/' . (int) $d['id'] . '/supprimer') ?>" data-confirm="Supprimer ce document ?">
+                                        <?= csrf_field() ?><button class="menu-item menu-danger">Supprimer</button>
                                     </form>
+                                </div>
+                            </details>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

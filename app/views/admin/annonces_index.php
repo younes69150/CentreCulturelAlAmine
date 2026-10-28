@@ -21,9 +21,14 @@
                         <td><span class="badge <?= $state[1] ?>"><?= $state[0] ?></span></td>
                         <td class="right actions">
                             <a class="btn btn-ghost btn-sm" href="<?= url('admin/messages/' . (int) $a['id']) ?>">Modifier</a>
-                            <form method="post" action="<?= url('admin/messages/' . (int) $a['id'] . '/supprimer') ?>" class="inline" data-confirm="Supprimer ce message ?">
-                                <?= csrf_field() ?><button class="btn btn-danger btn-sm">Supprimer</button>
-                            </form>
+<details class="row-menu">
+                                <summary class="btn btn-ghost btn-sm" aria-label="Plus d'actions">⋯</summary>
+                                <div class="row-menu-pop">
+                                    <form method="post" action="<?= url('admin/messages/' . (int) $a['id'] . '/supprimer') ?>" data-confirm="Supprimer ce message ?">
+                                        <?= csrf_field() ?><button class="menu-item menu-danger">Supprimer</button>
+                                    </form>
+                                </div>
+                            </details>
                         </td>
                     </tr>
                 <?php endforeach; ?>

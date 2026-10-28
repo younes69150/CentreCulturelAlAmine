@@ -117,6 +117,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Menus « ⋯ » : un seul ouvert à la fois, fermeture au clic extérieur ou Échap
+    const menus = document.querySelectorAll('.row-menu');
+    // Le menu est placé en position fixe pour ne pas être coupé par le tableau défilant.
+    const place = (m) => {
+        const pop = m.querySelector('.row-menu-pop');
+        const r = m.querySelector('summary').getBoundingClientRect();
+        pop.style.position = 'fixed';
+        pop.style.right = `${Math.max(8, window.innerWidth - r.right)}px`;
+        const below = r.bottom + 6 + pop.offsetHeight <= window.innerHeight;
+        pop.style.top = below ? `${r.bottom + 6}px` : `${Math.max(8, r.top - 6 - pop.offsetHeight)}px`;
+    };
+    menus.forEach((m) => m.addEventListener('toggle', () => {
+        if (!m.open) return;
+        menus.forEach((o) => { if (o !== m) o.open = false; });
+        place(m);
+    }));
+    window.addEventListener('scroll', () => menus.forEach((m) => { m.open = false; }), { passive: true });
+    window.addEventListener('resize', () => menus.forEach((m) => { m.open = false; }));
+    document.addEventListener('click', (e) => menus.forEach((m) => { if (!m.contains(e.target)) m.open = false; }));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') menus.forEach((m) => { m.open = false; }); });
+
     // Confirmation avant suppression
     document.querySelectorAll('form[data-confirm]').forEach((form) => {
         form.addEventListener('submit', (e) => {
