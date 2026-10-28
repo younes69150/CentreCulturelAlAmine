@@ -428,3 +428,17 @@ html.page-auth::-webkit-scrollbar { display: none; }
 @media (max-width: 760px) { .toasts { bottom: 16px; right: 16px; } }
 @media (prefers-reduced-motion: reduce) { .toast { animation: none; } }
 .badge { white-space: nowrap; }
+
+/* Messages vocaux */
+.voice { border: 1px dashed var(--line); border-radius: var(--radius-sm); padding: 14px 16px 16px; margin: 0; display: grid; gap: 12px; }
+.voice legend { font-weight: 600; padding: 0 6px; }
+.voice-recorder { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.voice-recorder[hidden], .voice-recorder [hidden] { display: none; }
+.voice-recorder .btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; vertical-align: -3px; margin-right: 4px; }
+.voice-recorder .hint { flex-basis: 100%; }
+.voice audio, .annonce-audio { width: 100%; max-width: 420px; height: 40px; }
+.voice-current { display: grid; gap: 8px; }
+.voice-file { display: grid; gap: 6px; }
+.rec-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #fff; margin-right: 4px; animation: live-pulse 1.4s infinite; }
+.annonce-audio { margin: 8px 0 4px; display: block; }
+.btn-rec { background: var(--danger); color: #fff; border-color: var(--danger); font-variant-numeric: tabular-nums; }

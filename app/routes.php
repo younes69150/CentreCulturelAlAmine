@@ -26,6 +26,7 @@ return [
     ['GET',  '/documents', 'documents_index'],
     ['GET',  '/direct', 'lives_index'],
     ['GET',  '/documents/(\d+)/telecharger', 'documents_download'],
+    ['GET',  '/messages/(\d+)/audio', 'annonce_audio'],
     ['GET',  '/mon-compte', 'account_show'],
     ['POST', '/mon-compte/mot-de-passe', 'account_password'],
 

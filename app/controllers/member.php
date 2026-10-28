@@ -115,10 +115,32 @@ function login_annonces(array $user): array
     }
     $now = now();
     return db_all(
-        "SELECT a.titre, a.contenu, c.nom AS classe_nom
+        "SELECT a.id, a.titre, a.contenu, a.audio_stockage, c.nom AS classe_nom
          FROM annonces a LEFT JOIN classes c ON c.id = a.classe_id
          WHERE a.actif = 1 AND (a.debut IS NULL OR a.debut <= ?) AND (a.fin IS NULL OR a.fin >= ?) AND $where
          ORDER BY a.created_at DESC",
         [$now, $now, ...$params]
     );
+}
+
+function annonce_audio(int $id): void
+{
+    $user = require_login();
+    if (is_staff($user)) {
+        $annonce = db_one('SELECT audio_stockage, audio_mime FROM annonces WHERE id = ?', [$id]);
+    } else {
+        [$where, $params] = visibility_sql($user);
+        $now = now();
+        $annonce = db_one(
+            "SELECT audio_stockage, audio_mime FROM annonces
+             WHERE id = ? AND actif = 1 AND (debut IS NULL OR debut <= ?) AND (fin IS NULL OR fin >= ?) AND $where",
+            [$id, $now, $now, ...$params]
+        );
+    }
+    $path = $annonce && $annonce['audio_stockage'] ? upload_dir() . '/' . $annonce['audio_stockage'] : null;
+    if (!$path || !is_file($path)) {
+        abort(404);
+    }
+    session_write_close();
+    stream_audio($path, $annonce['audio_mime']);
 }

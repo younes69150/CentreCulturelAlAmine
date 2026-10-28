@@ -30,11 +30,11 @@ function render(string $view, array $data = [], string $layout = 'layout'): void
 
 function send_security_headers(): void
 {
-    header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; script-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'");
+    header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; media-src 'self' blob:; style-src 'self'; font-src 'self'; script-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'");
     header('X-Frame-Options: DENY');
     header('X-Content-Type-Options: nosniff');
     header('Referrer-Policy: same-origin');
-    header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
+    header('Permissions-Policy: camera=(), microphone=(self), geolocation=()');
     header('Cross-Origin-Opener-Policy: same-origin');
     if (is_https()) {
         header('Strict-Transport-Security: max-age=31536000');

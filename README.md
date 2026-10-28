@@ -62,6 +62,7 @@ Mise à jour : cPanel > *Git Version Control* > *Manage* > *Pull*. `config.php` 
 - RGPD : pages « Mentions légales », « Confidentialité » et « CGU », consentement à l'inscription (accord parental sous 15 ans), suppression définitive d'un compte par l'admin, polices hébergées sur le site (aucune ressource externe, aucun traceur), un seul cookie technique.
 - Formulaires publics (connexion, inscription, mot de passe oublié) : champ piège invisible et délai minimal anti-robot, sans captcha.
 - Statistiques (*Administration > Statistiques*) : compteur de pages vues par jour, sans cookie ni adresse IP, conservé 13 mois. Exempté de bandeau cookies (CNIL).
+- Messages vocaux (*Administration > Messages*) : enregistrement au micro dans le navigateur (https obligatoire) ou fichier audio, 15 Mo max, contrôle du type réel ; écoute réservée aux destinataires du message.
 - Cours en direct (*Administration > Direct*) : le site publie un lien de visio (salle Jitsi créée automatiquement, ou lien Meet/Zoom collé) aux seules classes choisies ; le lien apparaît 15 min avant le début et disparaît à la fin ou quand on clique « Terminer ».
 - Le contenu d'une classe ne devient jamais public : une classe encore utilisée ne peut pas être supprimée.
 

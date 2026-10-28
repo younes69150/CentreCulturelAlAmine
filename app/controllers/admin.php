@@ -165,13 +165,13 @@ function admin_annonces_index(): void
 {
     require_staff();
     $annonces = db_all(
-        'SELECT a.id, a.titre, a.debut, a.fin, a.actif, c.nom AS classe_nom FROM annonces a
+        'SELECT a.id, a.titre, a.audio_stockage, a.debut, a.fin, a.actif, c.nom AS classe_nom FROM annonces a
          LEFT JOIN classes c ON c.id = a.classe_id ORDER BY a.created_at DESC'
     );
     render('admin/annonces_index', ['title' => 'Messages à la connexion', 'annonces' => $annonces]);
 }
 
-function annonce_from_post(): array
+function annonce_from_post(?array $existing = null): array
 {
     [$classeId, $classeError] = input_classe();
     $item = [
@@ -184,16 +184,42 @@ function annonce_from_post(): array
     ];
     $errors = [];
     if ($item['titre'] === '') $errors['titre'] = 'Le titre est obligatoire.';
-    if ($item['contenu'] === '') $errors['contenu'] = 'Le message est obligatoire.';
     if ($classeError) $errors['classe_id'] = $classeError;
     if ($item['debut'] && $item['fin'] && $item['fin'] < $item['debut']) $errors['fin'] = 'La fin doit être après le début.';
+
+    // Vocal : nouveau fichier, conservation de l'ancien, ou suppression.
+    $item['audio_stockage'] = $existing['audio_stockage'] ?? null;
+    $item['audio_mime'] = $existing['audio_mime'] ?? null;
+    $item['audio_nouveau'] = null;
+    if (isset($_POST['supprimer_audio'])) {
+        $item['audio_stockage'] = $item['audio_mime'] = null;
+    }
+    $file = $_FILES['audio'] ?? null;
+    if (!$errors && is_array($file) && ($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
+        $result = store_audio($file);
+        if (isset($result['error'])) {
+            $errors['audio'] = $result['error'];
+        } else {
+            $item['audio_nouveau'] = $result['ok'];
+            $item['audio_stockage'] = $result['ok']['nom_stockage'];
+            $item['audio_mime'] = $result['ok']['mime'];
+        }
+    }
+    if ($item['contenu'] === '' && !$item['audio_stockage'] && !isset($errors['audio'])) {
+        $errors['contenu'] = 'Écrivez un message ou enregistrez un vocal.';
+    }
+    if ($errors && $item['audio_nouveau']) {
+        delete_upload($item['audio_nouveau']['nom_stockage']);
+        $item['audio_stockage'] = $existing['audio_stockage'] ?? null;
+        $item['audio_mime'] = $existing['audio_mime'] ?? null;
+    }
     return [$item, $errors];
 }
 
 function admin_annonces_create(): void
 {
     require_staff();
-    render('admin/annonces_form', ['title' => 'Nouveau message', 'item' => ['titre' => '', 'contenu' => '', 'classe_id' => null, 'debut' => null, 'fin' => null, 'actif' => 1], 'errors' => [], 'classes' => all_classes()]);
+    render('admin/annonces_form', ['title' => 'Nouveau message', 'item' => ['titre' => '', 'contenu' => '', 'audio_stockage' => null, 'classe_id' => null, 'debut' => null, 'fin' => null, 'actif' => 1], 'errors' => [], 'classes' => all_classes()]);
 }
 
 function admin_annonces_store(): void
@@ -205,8 +231,8 @@ function admin_annonces_store(): void
         return;
     }
     db_insert(
-        'INSERT INTO annonces (titre, contenu, classe_id, debut, fin, actif, auteur_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [$item['titre'], $item['contenu'], $item['classe_id'], $item['debut'], $item['fin'], $item['actif'], $user['id'], now(), now()]
+        'INSERT INTO annonces (titre, contenu, audio_stockage, audio_mime, classe_id, debut, fin, actif, auteur_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [$item['titre'], $item['contenu'], $item['audio_stockage'], $item['audio_mime'], $item['classe_id'], $item['debut'], $item['fin'], $item['actif'], $user['id'], now(), now()]
     );
     flash('success', 'Message enregistré. Il s\'affichera à la prochaine connexion des destinataires.');
     redirect('/admin/messages');
@@ -222,17 +248,20 @@ function admin_annonces_edit(int $id): void
 function admin_annonces_update(int $id): void
 {
     require_staff();
-    db_one('SELECT id FROM annonces WHERE id = ?', [$id]) ?? abort(404);
-    [$item, $errors] = annonce_from_post();
+    $old = db_one('SELECT id, audio_stockage, audio_mime FROM annonces WHERE id = ?', [$id]) ?? abort(404);
+    [$item, $errors] = annonce_from_post($old);
     if ($errors) {
         $item['id'] = $id;
         render('admin/annonces_form', ['title' => 'Modifier le message', 'item' => $item, 'errors' => $errors, 'classes' => all_classes()]);
         return;
     }
     db_run(
-        'UPDATE annonces SET titre = ?, contenu = ?, classe_id = ?, debut = ?, fin = ?, actif = ?, updated_at = ? WHERE id = ?',
-        [$item['titre'], $item['contenu'], $item['classe_id'], $item['debut'], $item['fin'], $item['actif'], now(), $id]
+        'UPDATE annonces SET titre = ?, contenu = ?, audio_stockage = ?, audio_mime = ?, classe_id = ?, debut = ?, fin = ?, actif = ?, updated_at = ? WHERE id = ?',
+        [$item['titre'], $item['contenu'], $item['audio_stockage'], $item['audio_mime'], $item['classe_id'], $item['debut'], $item['fin'], $item['actif'], now(), $id]
     );
+    if ($old['audio_stockage'] && $old['audio_stockage'] !== $item['audio_stockage']) {
+        delete_upload($old['audio_stockage']);
+    }
     flash('success', 'Message modifié.');
     redirect('/admin/messages');
 }
@@ -240,7 +269,9 @@ function admin_annonces_update(int $id): void
 function admin_annonces_delete(int $id): void
 {
     require_staff();
+    $audio = db_value('SELECT audio_stockage FROM annonces WHERE id = ?', [$id]);
     db_run('DELETE FROM annonces WHERE id = ?', [$id]);
+    if ($audio) delete_upload($audio);
     flash('success', 'Message supprimé.');
     redirect('/admin/messages');
 }

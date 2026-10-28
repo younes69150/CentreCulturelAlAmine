@@ -81,6 +81,8 @@ CREATE TABLE annonces (
     id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     titre      VARCHAR(200) NOT NULL,
     contenu    TEXT NOT NULL,
+    audio_stockage CHAR(64) NULL,
+    audio_mime     VARCHAR(100) NULL,
     classe_id  INT UNSIGNED NULL,
     debut      DATETIME NULL,
     fin        DATETIME NULL,

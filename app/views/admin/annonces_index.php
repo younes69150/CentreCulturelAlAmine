@@ -12,7 +12,7 @@
                         : ($a['fin'] && $a['fin'] < $now ? ['Terminé', 'badge-muted']
                         : ($a['debut'] && $a['debut'] > $now ? ['Programmé', 'badge-gold'] : ['En ligne', 'badge-green'])); ?>
                     <tr>
-                        <td><?= e($a['titre']) ?></td>
+                        <td><?= e($a['titre']) ?><?php if ($a['audio_stockage']): ?> <span class="badge badge-gold">Vocal</span><?php endif; ?></td>
                         <td><?php partial('partials/audience', ['classe' => $a['classe_nom']]) ?></td>
                         <td class="small">
                             <?= $a['debut'] ? 'Du ' . e(format_date($a['debut'], true)) : 'Dès maintenant' ?><br>

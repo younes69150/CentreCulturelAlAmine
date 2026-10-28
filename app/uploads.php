@@ -29,6 +29,66 @@ function allowed_uploads(): array
     ];
 }
 
+/** Messages vocaux : le premier type de chaque liste est celui servi à la lecture. */
+function allowed_audio(): array
+{
+    return [
+        'webm' => ['audio/webm', 'video/webm'],
+        'ogg'  => ['audio/ogg', 'video/ogg', 'application/ogg'],
+        'mp3'  => ['audio/mpeg'],
+        'm4a'  => ['audio/mp4', 'audio/x-m4a', 'video/mp4'],
+        'wav'  => ['audio/wav', 'audio/x-wav'],
+    ];
+}
+
+function store_audio(mixed $file): array
+{
+    $result = store_upload($file, allowed_audio(), 15);
+    if (isset($result['ok'])) {
+        $ext = strtolower(pathinfo($result['ok']['nom_original'], PATHINFO_EXTENSION));
+        $result['ok']['mime'] = allowed_audio()[$ext][0];
+    }
+    return $result;
+}
+
+/** Envoie un fichier audio en gérant les requêtes partielles (nécessaires à Safari). */
+function stream_audio(string $path, string $mime): never
+{
+    $size = filesize($path);
+    $start = 0;
+    $end = $size - 1;
+    if (preg_match('/^bytes=(\d*)-(\d*)$/', $_SERVER['HTTP_RANGE'] ?? '', $m) && ($m[1] !== '' || $m[2] !== '')) {
+        if ($m[1] === '') {
+            $start = max(0, $size - (int) $m[2]);
+        } else {
+            $start = (int) $m[1];
+            $end = $m[2] !== '' ? min((int) $m[2], $end) : $end;
+        }
+        if ($start > $end || $start >= $size) {
+            http_response_code(416);
+            header('Content-Range: bytes */' . $size);
+            exit;
+        }
+        http_response_code(206);
+        header("Content-Range: bytes $start-$end/$size");
+    }
+    header('Content-Type: ' . $mime);
+    header('Accept-Ranges: bytes');
+    header('Content-Length: ' . ($end - $start + 1));
+    header('Cache-Control: private, max-age=3600');
+    header("Content-Security-Policy: default-src 'none'; sandbox");
+    $fh = fopen($path, 'rb');
+    fseek($fh, $start);
+    $left = $end - $start + 1;
+    while ($left > 0 && !feof($fh)) {
+        $chunk = fread($fh, min(65536, $left));
+        echo $chunk;
+        $left -= strlen($chunk);
+    }
+    fclose($fh);
+    exit;
+}
+
 function upload_dir(): string
 {
     return BASE_PATH . '/storage/uploads';
@@ -38,12 +98,13 @@ function upload_dir(): string
  * Valide et range un fichier envoyé hors du dossier public.
  * Retourne ['ok' => [...infos]] ou ['error' => message].
  */
-function store_upload(mixed $file): array
+function store_upload(mixed $file, ?array $allowed = null, ?int $maxMb = null): array
 {
     if (!is_array($file) || !isset($file['error']) || is_array($file['error'])) {
         return ['error' => 'Aucun fichier reçu.'];
     }
-    $maxBytes = (int) config('uploads.max_mb', 20) * 1048576;
+    $maxMb ??= (int) config('uploads.max_mb', 20);
+    $maxBytes = $maxMb * 1048576;
     switch ($file['error']) {
         case UPLOAD_ERR_OK:
             break;
@@ -56,7 +117,7 @@ function store_upload(mixed $file): array
             return ['error' => 'L\'envoi du fichier a échoué.'];
     }
     if ($file['size'] <= 0 || $file['size'] > $maxBytes) {
-        return ['error' => 'Fichier vide ou trop volumineux (maximum ' . config('uploads.max_mb', 20) . ' Mo).'];
+        return ['error' => 'Fichier vide ou trop volumineux (maximum ' . $maxMb . ' Mo).'];
     }
     if (!is_uploaded_file($file['tmp_name'])) {
         return ['error' => 'Fichier invalide.'];
@@ -64,7 +125,7 @@ function store_upload(mixed $file): array
 
     $original = clean_filename((string) $file['name']);
     $ext = strtolower(pathinfo($original, PATHINFO_EXTENSION));
-    $allowed = allowed_uploads();
+    $allowed ??= allowed_uploads();
     if (!isset($allowed[$ext])) {
         return ['error' => 'Type de fichier non autorisé. Formats acceptés : ' . implode(', ', array_keys($allowed)) . '.'];
     }

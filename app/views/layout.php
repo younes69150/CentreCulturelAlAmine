@@ -128,7 +128,10 @@ $active = fn (string $prefix) => str_starts_with($path, $prefix) ? ' aria-curren
                 <article class="annonce">
                     <h3><?= e($a['titre']) ?></h3>
                     <?php if ($a['classe_nom']): ?><span class="badge"><?= e($a['classe_nom']) ?></span><?php endif; ?>
-                    <p><?= text($a['contenu']) ?></p>
+                    <?php if ($a['audio_stockage']): ?>
+                        <audio class="annonce-audio" controls preload="metadata" src="<?= url('messages/' . (int) $a['id'] . '/audio') ?>"></audio>
+                    <?php endif; ?>
+                    <?php if ($a['contenu'] !== ''): ?><p><?= text($a['contenu']) ?></p><?php endif; ?>
                 </article>
             <?php endforeach; ?>
         </div>
