@@ -51,8 +51,8 @@
         <h2>Vous souhaitez inscrire votre enfant&nbsp;?</h2>
         <p>Contactez l'école : nous vous présentons les cours et vous remettons votre code d'inscription.</p>
         <div class="cta-actions">
-            <?php if ($mail): ?><a class="btn btn-primary" href="mailto:<?= e($mail) ?>?subject=<?= rawurlencode('Inscription au Centre Culturel Al Amine') ?>">Contacter l'école</a><?php endif; ?>
-            <?php if ($tel): ?><a class="btn btn-ghost" href="tel:<?= e(preg_replace('/[^\d+]/', '', $tel)) ?>">Appeler le <?= e($tel) ?></a><?php endif; ?>
+            <?php if ($mail): ?><a class="btn btn-gold" href="mailto:<?= e($mail) ?>?subject=<?= rawurlencode('Inscription au Centre Culturel Al Amine') ?>">Contacter l'école</a><?php endif; ?>
+            <?php if ($tel): ?><a class="btn btn-outline-light" href="tel:<?= e(preg_replace('/[^\d+]/', '', $tel)) ?>">Appeler le <?= e($tel) ?></a><?php endif; ?>
         </div>
     </div>
 </section>
