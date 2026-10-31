@@ -185,9 +185,10 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .92em;
 .plain-list { list-style: none; padding: 0; margin: 0; }
 .plain-list li { padding: 10px 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; }
 .plain-list li:last-child { border-bottom: 0; }
-.grid-sidebar { display: grid; grid-template-columns: 340px 1fr; gap: 24px; align-items: start; }
-@media (max-width: 900px) { .grid-sidebar { grid-template-columns: 1fr; } }
-.tabs { display: flex; gap: 6px; margin-bottom: 14px; }
+.grid-sidebar { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 900px) { .grid-sidebar { grid-template-columns: minmax(0, 1fr); } }
+.grid-sidebar > * { min-width: 0; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
 .tabs a { padding: 6px 14px; border-radius: 999px; text-decoration: none; color: var(--muted); border: 1px solid var(--line); background: var(--surface); font-size: .9rem; }
 .tabs a[aria-current="page"] { background: var(--primary); color: #fff; border-color: var(--primary); }
 .filter-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
